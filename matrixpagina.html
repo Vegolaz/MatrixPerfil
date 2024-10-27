@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        /* Estilos de Matrix para el formulario */
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .contact-form {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 15px #00ff00;
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ff00;
+        }
+
+        .contact-form label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #00ff00;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 8px;
+            background-color: #000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .contact-form button:hover {
+            background-color: #00cc00;
+        }
+
+        .confirmation-message {
+            text-align: center;
+            color: #00ff00;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Formulario de Contacto -->
+<div class="contact-form" id="contactForm">
+    <h2>Contacto</h2>
+    <form id="contactForm" onsubmit="return validateForm()">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+    <p class="confirmation-message" id="confirmationMessage"></p>
+</div>
+
+<script>
+    // Función de validación del formulario
+    function validateForm() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const confirmationMessage = document.getElementById("confirmationMessage");
+
+        // Validación de campos
+        if (!name) {
+            alert("Por favor, ingresa tu nombre.");
+            return false;
+        }
+        if (!email || !validateEmail(email)) {
+            alert("Por favor, ingresa un correo electrónico válido.");
+            return false;
+        }
+        if (!message) {
+            alert("Por favor, escribe tu mensaje.");
+            return false;
+        }
+
+        // Envío simulado del formulario
+        submitForm(name, email, message);
+
+        // Mensaje de confirmación
+        confirmationMessage.innerText = "¡Gracias por tu mensaje! Nos pondremos en contacto pronto.";
+        return false; // Evita el envío real del formulario
+    }
+
+    // Función de validación del correo electrónico
+    function validateEmail(email) {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return re.test(email);
+    }
+
+    // Función para simular el envío del formulario
+    function submitForm(name, email, message) {
+        console.log("Formulario enviado con éxito:");
+        console.log("Nombre:", name);
+        console.log("Correo:", email);
+        console.log("Mensaje:", message);
+
+        // Aquí iría la solicitud HTTP POST en un proyecto real
+        // Ejemplo:
+        // fetch('https://tudominio.com/api/contact', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ name, email, message })
+        // }).then(response => response.json())
+        //   .then(data => console.log(data))
+        //   .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>
